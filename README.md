@@ -23,9 +23,15 @@ git clone --recursive https://github.com/namin/holey.git
 
 ### Setup Python environment
 ```
+make setup
+conda activate holey
+```
+
+Or manually:
+```
 conda create -n holey python=3.12
 conda activate holey
-pip install -e ".[test,ollama,anthropic]"
+pip install -e ".[test,ollama,anthropic,google-genai,openai]"
 ```
 
 ### Setup LLM environments
@@ -52,13 +58,23 @@ python puzzle_solver.py --help
 ### Sanity check
 
 ```
+make sanity-check
+```
+
+Or manually:
+```
 python puzzle_solver.py --name-prefix HelloWorld:0
 ```
 
 ### Run all puzzles, saving stdout/stderr to file results.txt
 
 ```
-python puzzle_solver.py  >results.txt 2>&
+make run-all
+```
+
+Or manually:
+```
+python puzzle_solver.py >results.txt 2>&1
 ```
 
 ### Fallback to LLMs
@@ -66,7 +82,23 @@ python puzzle_solver.py  >results.txt 2>&
 Set `ANTHROPIC_API_KEY` for Claude or default to local Ollama.
 
 ```
-python puzzle_solver.py --name-prefix ListIn:1  --llm
+make run-llm
+```
+
+Or manually:
+```
+python puzzle_solver.py --name-prefix ListIn:1 --llm
+```
+
+### Run tests
+
+```
+make test
+```
+
+Or manually:
+```
+python -m pytest
 ```
 
 ## Current status
